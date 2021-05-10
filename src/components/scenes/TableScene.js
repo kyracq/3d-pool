@@ -1,44 +1,53 @@
-import { Scene, Color, Vector3, Box3, EventDispatcher } from 'three';
+import { Project, Scene3D, PhysicsLoader, THREE } from 'enable3d';
 import { Table, Ball } from 'objects';
 import { BasicLights } from 'lights';
 
-class TableScene extends Scene {
+class TableScene extends Scene3D {
     constructor() {
-        // Call parent Scene() constructor
-        super();
+        super('TableScene');
+    }
 
-        // Init state
-        this.state = {
-            updateList: [],
-        };
+    init() {
+        this.renderer.setPixelRatio(1);
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
 
-        // Set background to a nice color
-        this.background = new Color(0x7ec0ee);
+    create() {
+        // set up scene (light, ground, grid, sky, orbitControls)
+        this.warpSpeed();
+
+        // enable physics debug
+        this.physics.debug.enable();
+
+        // position camera
+        this.camera.position.set(10, 10, 20);
 
         // Add meshes to scene
         const table = new Table();
         const lights = new BasicLights();
-        this.add(table, lights);
-        for (let i = 0; i < 3; i++) {
-            let ball = new Ball();
-            this.add(ball);
-            ball.position.y = 0.72;
-            ball.position.z = 0 - 0.2;
-            ball.position.x = 0.2 * i + 0.2;
-        }
-    }
+        this.scene.add(lights);
+        this.scene.add(table);
+        table.scale.set(5, 5, 5);
+        this.physics.add.existing(table, {
+            shape: 'box',
+            width: 2,
+            height: 0.62,
+            depth: 1,
+        });
+        // for (let i = 0; i < 3; i++) {
+        //     let ball = new Ball();
+        //     this.ball = this.scene.add(ball);
+        //     ball.position.y = 0.72;
+        //     ball.position.z = 0 - 0.2;
+        //     ball.position.x = 0.2 * i + 0.2;
+        // }
 
-    addToUpdateList(object) {
-        this.state.updateList.push(object);
-    }
-
-    update(timeStamp) {
-        const { updateList } = this.state;
-
-        // Call update for each object in the updateList
-        for (const obj of updateList) {
-            obj.update(timeStamp);
-        }
+        // add physics to an existing object
+        let ball = this.physics.add.sphere(
+            { radius: 0.2, x: 4, y: 4, z: 0 },
+            { lambert: { color: 'white' } }
+        );
+        ball.body.applyForceX(-2);
     }
 }
 

@@ -1,4 +1,4 @@
-import { Group, LoadingManager } from 'three';
+import { Group, LoadingManager, Material } from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import MATERIAL from './8Ball.mtl';
