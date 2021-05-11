@@ -12,7 +12,7 @@ import { TableScene } from 'scenes';
 import { Project, PhysicsLoader } from 'enable3d';
 
 PhysicsLoader(
-    'src/ammo',
+    'lib',
     () => new Project({ scenes: [TableScene], antialias: true })
 );
 // // Initialize core ThreeJS components

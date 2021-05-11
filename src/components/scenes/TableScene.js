@@ -1,4 +1,4 @@
-import { Project, Scene3D, PhysicsLoader, THREE } from 'enable3d';
+import { Scene3D, Canvas, Cameras, THREE, ExtendedObject3D } from 'enable3d';
 import { Table, Ball } from 'objects';
 import { BasicLights } from 'lights';
 
@@ -17,7 +17,7 @@ class TableScene extends Scene3D {
         this.warpSpeed();
 
         // enable physics debug
-        this.physics.debug.enable();
+        // this.physics.debug.enable();
 
         // position camera
         this.camera.position.set(10, 10, 20);
@@ -28,6 +28,7 @@ class TableScene extends Scene3D {
         this.scene.add(lights);
         this.scene.add(table);
         table.scale.set(5, 5, 5);
+
         this.physics.add.existing(table, {
             shape: 'box',
             width: 2,
@@ -47,7 +48,7 @@ class TableScene extends Scene3D {
             { radius: 0.2, x: 4, y: 4, z: 0 },
             { lambert: { color: 'white' } }
         );
-        ball.body.applyForceX(-2);
+        ball.body.applyForce(-2, 0, 0);
     }
 }
 
