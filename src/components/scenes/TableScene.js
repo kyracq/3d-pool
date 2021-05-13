@@ -48,7 +48,12 @@ class TableScene extends Scene3D {
             { radius: 0.2, x: 4, y: 4, z: 0 },
             { lambert: { color: 'white' } }
         );
-        ball.body.applyForce(-2, 0, 0);
+        let ball2 = this.physics.add.sphere(
+            { radius: 0.2, x: -4, y: 4, z: 0 },
+            { lambert: { color: 'white' } }
+        );
+        ball.body.applyForce(-3, 0, 0);
+        ball2.body.applyForce(5, 0, 0);
     }
 }
 
