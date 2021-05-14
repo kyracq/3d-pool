@@ -1,7 +1,6 @@
 import { Group, LoadingManager, Mesh } from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import MATERIAL from './PoolTable.mtl';
 import OBJ from './PoolTable.obj';
@@ -12,7 +11,6 @@ class Table extends Group {
         super();
 
         this.name = 'table';
-        // const loader = new GLTFLoader();
         const manager = new LoadingManager();
 
         new MTLLoader(manager).load(MATERIAL, (materials) => {
@@ -34,11 +32,6 @@ class Table extends Group {
                     this.add(model);
                 });
         });
-        // loader.load(MODEL, (gltfObj) => {
-        //     const table = gltfObj.scene.children[0];
-        //     table.position.setY(5);
-        //     this.add(table);
-        // });
     }
 }
 

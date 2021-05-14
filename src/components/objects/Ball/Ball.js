@@ -1,24 +1,12 @@
-import { Group, LoadingManager, Material } from 'three';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import MATERIAL from './8Ball.mtl';
-import OBJ from './8Ball.obj';
+import { Scene3D, Canvas, Cameras, THREE, ExtendedObject3D } from 'enable3d';
 
-class Ball extends Group {
-    constructor() {
-        super();
-
-        this.name = 'table';
-
-        const manager = new LoadingManager();
-
-        new MTLLoader(manager).load(MATERIAL, (materials) => {
-            materials.preload();
-
-            new OBJLoader(manager)
-                .setMaterials(materials)
-                .load(OBJ, (object) => this.add(object));
-        });
+class Ball {
+    constructor(color) {
+        this.name = 'ball';
+        const geometry = new THREE.SphereGeometry(0.1, 16, 16);
+        const material = new THREE.MeshLambertMaterial({ color: color });
+        const sphere = new THREE.Mesh(geometry, material);
+        this.mesh = sphere;
     }
 }
 
