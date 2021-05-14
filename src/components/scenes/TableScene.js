@@ -2,6 +2,8 @@ import * as Dat from 'dat.gui';
 import { Scene3D, Canvas, Cameras, THREE, ExtendedObject3D } from 'enable3d';
 import { Table, Ball } from 'objects';
 import { BasicLights } from 'lights';
+import * as DAT from 'dat.gui';
+import { Color } from 'three';
 
 class TableScene extends Scene3D {
     constructor() {
@@ -35,11 +37,55 @@ class TableScene extends Scene3D {
 
         this.state.gui.add(this.state, 'power', 1, 20).listen();
 
-        // enable physics debug
-        // this.physics.debug.enable();
+        // add drop down list to choose theme
+        var gui = new DAT.GUI();
+        var theme_folder = gui.addFolder('Theme');
+        var current_theme = { theme: 'Default' };
+        theme_folder
+            .add(current_theme, 'theme', {
+                Pink: 'pink',
+                Sunny_Park: 'sunPark',
+                Default: 'default',
+            })
+            .onChange((newValue) => {
+                switchTheme(newValue);
+            });
+        var temp = this;
 
-        // position camera
-        this.camera.position.set(10, 10, 20);
+        // set theme based on dropdown
+        function switchTheme(stringTheme) {
+            switch (stringTheme) {
+                case 'pink':
+                    temp.scene.background = new Color('#FFC0CB');
+                    break;
+                case 'sunPark':
+                    // load background
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(
+                        'src/components/backgrounds/sunny_vondelpark.jpg',
+                        () => {
+                            const rt = new THREE.WebGLCubeRenderTarget(
+                                texture.image.height
+                            );
+                            rt.fromEquirectangularTexture(
+                                temp.renderer,
+                                texture
+                            );
+                            temp.scene.background = rt.texture;
+                        }
+                    );
+                    break;
+                case 'default':
+                    temp.scene.background = new Color('#40E0D0');
+                    ground.body.Color = new Color('#90EE90');
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // enable physics debug
+        //this.physics.debug.enable();
 
         // Add meshes to scene
         const table = new Table();
