@@ -3,7 +3,7 @@ import { Scene3D, Canvas, Cameras, THREE, ExtendedObject3D } from 'enable3d';
 import { Table, Ball } from 'objects';
 import { BasicLights } from 'lights';
 import * as DAT from 'dat.gui';
-import { Color } from 'three';
+import { Color, ArrowHelper, Vector3 } from 'three';
 
 class TableScene extends Scene3D {
     constructor() {
@@ -28,11 +28,12 @@ class TableScene extends Scene3D {
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
             updateList: [], // Maintains all meshes to be updated
-
-            // Direction/Power for golf ball
+            direction: new THREE.Vector3(-1, 0, 0),
             spacePressed: false,
             power: 10,
             complete: false,
+            turnOver: false,
+            firstTurn: true,
         };
 
         this.state.gui.add(this.state, 'power', 1, 20).listen();
@@ -83,6 +84,7 @@ class TableScene extends Scene3D {
                     break;
             }
         }
+        let arrowColor = new Color('#e5ff87');
 
         // enable physics debug
         //this.physics.debug.enable();
@@ -141,18 +143,39 @@ class TableScene extends Scene3D {
             { lambert: { color: 'white' } }
         );
         cue.body.setBounciness(0.8);
-
         this.cue = cue;
+        const arrowHelper = new ArrowHelper(
+            this.state.direction,
+            new Vector3(0, 0, 0), // set immediately in update()
+            this.state.power / 5,
+            arrowColor
+        );
+        this.arrow = arrowHelper;
+
+        arrowHelper.children[0].material.customProgramCacheKey = () => {};
+        arrowHelper.children[1].material.customProgramCacheKey = () => {};
+        this.scene.add(arrowHelper);
+
+        const diectionOffset = 0.1;
 
         document.addEventListener('keydown', (event) => {
             if (event.code === 'Space') {
                 this.state.spacePressed = true;
+            } else if (event.code === 'ArrowLeft') {
+                this.updateDirection(diectionOffset);
+            } else if (event.code === 'ArrowRight') {
+                this.updateDirection(-diectionOffset);
             }
         });
         document.addEventListener('keyup', (event) => {
             if (event.code === 'Space') {
-                cue.body.applyForce(-this.state.power / 2, 0, 0);
+                cue.body.applyForce(
+                    (this.state.power * this.state.direction.x) / 2,
+                    (this.state.power * this.state.direction.y) / 2,
+                    (this.state.power * this.state.direction.z) / 2
+                );
                 this.state.spacePressed = false;
+                this.state.hideArrow = true;
             }
         });
     }
@@ -165,6 +188,12 @@ class TableScene extends Scene3D {
             Math.abs(cueVel.z) < 0.05
         ) {
             this.cue.body.setVelocity(0, 0, 0);
+            this.arrow.visible = true;
+            if (!this.state.firstTurn) {
+                this.state.turnOver = true;
+            }
+        } else {
+            this.arrow.visible = false;
         }
         for (let i = 0; i < this.poolBalls.length; i++) {
             let vel = this.poolBalls[i].body.velocity;
@@ -180,6 +209,24 @@ class TableScene extends Scene3D {
         if (this.state.spacePressed) {
             this.state.power = Math.ceil(10 * Math.sin(Date.now() / 400) + 10);
         }
+
+        this.arrow.position.copy(this.cue.position);
+        this.arrow.setLength(this.state.power / 5);
+
+        // friction
+        this.cue.body.setVelocity(
+            cueVel.x - 0.015 * cueVel.x,
+            cueVel.y - 0.015 * cueVel.y,
+            cueVel.z - 0.015 * cueVel.z
+        );
+    }
+
+    updateDirection(offset) {
+        let newDirection = this.state.direction.clone();
+        let axis = new THREE.Vector3(0, 1, 0);
+        newDirection.applyAxisAngle(axis, offset);
+        this.state.direction = newDirection;
+        this.arrow.setDirection(newDirection);
     }
 }
 
