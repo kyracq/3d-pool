@@ -31,12 +31,29 @@ class TableScene extends Scene3D {
             direction: new THREE.Vector3(-1, 0, 0),
             spacePressed: false,
             power: 10,
-            complete: false,
-            turnOver: false,
+            player1Turn: true,
             firstTurn: true,
         };
 
         this.state.gui.add(this.state, 'power', 1, 20).listen();
+
+        // text
+        const head = document.getElementsByTagName('head')[0];
+        const link = document.createElement('link');
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
+        link.href =
+            'https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap';
+        head.appendChild(link);
+        const text1 = document.createElement('div');
+        text1.innerText = `Player 1's Turn`;
+        text1.id = 'which-player-turn';
+        text1.style.position = 'absolute';
+        text1.style.top = '40px';
+        text1.style.left = '10%';
+        text1.style.fontWeight = 'bold';
+        text1.style.fontFamily = '"Oxygen", sans-serif';
+        document.body.appendChild(text1);
 
         // add drop down list to choose theme
         var gui = new DAT.GUI();
@@ -175,7 +192,7 @@ class TableScene extends Scene3D {
                     (this.state.power * this.state.direction.z) / 2
                 );
                 this.state.spacePressed = false;
-                this.state.hideArrow = true;
+                if (this.state.firstTurn) this.state.firstTurn = false;
             }
         });
     }
@@ -188,10 +205,14 @@ class TableScene extends Scene3D {
             Math.abs(cueVel.z) < 0.05
         ) {
             this.cue.body.setVelocity(0, 0, 0);
-            this.arrow.visible = true;
-            if (!this.state.firstTurn) {
-                this.state.turnOver = true;
+            if (!this.arrow.visible && !this.state.firstTurn) {
+                // ball now stopping
+                const text = document.getElementById('which-player-turn');
+                this.state.player1Turn = !this.state.player1Turn;
+                const num = this.state.player1Turn ? `1` : `2`;
+                text.innerText = `Player ${num}'s Turn`;
             }
+            this.arrow.visible = true;
         } else {
             this.arrow.visible = false;
         }
