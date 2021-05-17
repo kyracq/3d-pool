@@ -593,11 +593,11 @@ class TableScene extends Scene3D {
             otherObject === this.poolBalls[6]
         ) {
             solidType = true;
-            this.state.solidsLeft--;
         } else if (isBall) {
             solidType = false;
-            this.state.stripesLeft--;
         }
+        console.log(this.state.solidsLeft);
+        console.log(this.state.stripesLeft);
         let type = solidType ? 'solid' : 'striped';
         if (isBall) {
             if (this.state.firstPocket) {
@@ -612,9 +612,15 @@ class TableScene extends Scene3D {
                 if (this.state.player1Turn) {
                     if (this.state.player1Solid === solidType) {
                         this.state.playerBallPocketed = true;
+                        if (this.state.solidType) {
+                            this.state.solidsLeft--;
+                        } else this.state.stripesLeft--;
                     }
                 } else if (this.state.player1Solid !== solidType)
                     this.state.playerBallPocketed = true;
+                if (this.state.solidType) {
+                    this.state.solidsLeft--;
+                } else this.state.stripesLeft--;
             }
         }
     }
