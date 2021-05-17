@@ -197,24 +197,31 @@ class TableScene extends Scene3D {
         var box2 = this.add.box({width: 4.10, height: 3.43, depth: 2, x: -2.35, y: -2, z: -3.33}, {lambert: {color: 'red', transparent: true, opacity: 0.0}});
         this.physics.add.existing(box2, {collisionFlags: 2});
         box2.body.setFriction(0.7);
+        box2.body.setBounciness(0.8);
+
         var box3 = this.add.box({width: 4.10, height: 3.43, depth: 2, x: 2.35, y: -2, z: -3.33}, {lambert: {color: 'red', transparent: true, opacity: 0.0}});
         this.physics.add.existing(box3, {collisionFlags: 2});
         box3.body.setFriction(0.7);
+        box3.body.setBounciness(0.8);
         // long side 2
         var box4 = this.add.box({width: 4.10, height: 3.43, depth: 2, x: -2.35, y: -2, z: 3.355}, {lambert: {color: 'red', transparent: true, opacity: 0.0}});
         this.physics.add.existing(box4, {collisionFlags: 2});
         box4.body.setFriction(0.7);
+        box4.body.setBounciness(0.8);
         var box5 = this.add.box({width: 4.10, height: 3.43, depth: 2, x: 2.35, y: -2, z: 3.355}, {lambert: {color: 'red', transparent: true, opacity: 0.0}});
         this.physics.add.existing(box5, {collisionFlags: 2});
         box5.body.setFriction(0.7);
+        box5.body.setBounciness(0.8);
         // short side 1
         var box6 = this.add.box({width: 2, height: 3.43, depth: 4.1, y: -2, x: -5.70}, {lambert: {color: 'red', transparent: true, opacity: 0.0}});
         this.physics.add.existing(box6, {collisionFlags: 2});
         box6.body.setFriction(0.7);
+        box6.body.setBounciness(0.8);
         // short side 2
         var box7 = this.add.box({width: 2, height: 3.43, depth: 4.1, y: -2, x: 5.70}, {lambert: {color: 'red', transparent: true, opacity:0.0}});
         this.physics.add.existing(box7, {collisionFlags: 2});
         box7.body.setFriction(0.7);
+        box7.body.setBounciness(0.8);
 
         // add balls 
         let positions = [
