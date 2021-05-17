@@ -75,10 +75,10 @@ class TableScene extends Scene3D {
             firstTurn: true,
             cuePocketed: false,
             ballPocketed: false,
-            playerBallPocketed: false,
+            // playerBallPocketed: false,
             firstPocket: true,
-            solidsLeft: 7,
-            stripesLeft: 7,
+            // solidsLeft: 7,
+            // stripesLeft: 7,
         };
 
         this.state.gui.add(this.state, 'power', 1, 20).listen();
@@ -429,7 +429,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -451,7 +450,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -473,7 +471,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -495,7 +492,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -517,7 +513,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -539,7 +534,6 @@ class TableScene extends Scene3D {
             } else {
                 this.state.ballPocketed = true;
                 this.destroy(otherObject);
-                this.handlePocket(otherObject);
             }
         });
 
@@ -581,51 +575,6 @@ class TableScene extends Scene3D {
         });
     }
 
-    handlePocket(otherObject) {
-        let solidType;
-        let isBall = this.poolBalls.some((ball) => ball === otherObject);
-        if (
-            otherObject === this.poolBalls[0] ||
-            otherObject === this.poolBalls[1] ||
-            otherObject === this.poolBalls[2] ||
-            otherObject === this.poolBalls[3] ||
-            otherObject === this.poolBalls[4] ||
-            otherObject === this.poolBalls[5] ||
-            otherObject === this.poolBalls[6]
-        ) {
-            solidType = true;
-        } else if (isBall) {
-            solidType = false;
-        }
-        console.log(this.state.solidsLeft);
-        console.log(this.state.stripesLeft);
-        let type = solidType ? 'solid' : 'striped';
-        if (isBall) {
-            if (this.state.firstPocket) {
-                this.state.firstPocket = false;
-                document.getElementById(
-                    'which-player-turn'
-                ).innerText += `: pocket ${type} balls`;
-                if (this.state.player1Turn) {
-                    this.state.player1Solid = solidType;
-                } else this.state.player1Solid = !solidType;
-            } else {
-                if (this.state.player1Turn) {
-                    if (this.state.player1Solid === solidType) {
-                        this.state.playerBallPocketed = true;
-                        if (this.state.solidType) {
-                            this.state.solidsLeft--;
-                        } else this.state.stripesLeft--;
-                    }
-                } else if (this.state.player1Solid !== solidType)
-                    this.state.playerBallPocketed = true;
-                if (this.state.solidType) {
-                    this.state.solidsLeft--;
-                } else this.state.stripesLeft--;
-            }
-        }
-    }
-
     update(time, delta) {
         if (this.state.cuePocketed) {
             cue = this.physics.add.sphere(
@@ -647,29 +596,17 @@ class TableScene extends Scene3D {
             if (
                 !this.arrow.visible &&
                 !this.state.firstTurn &&
-                !this.state.playerBallPocketed
+                !this.state.ballPocketed
             ) {
                 // ball now stopping
                 const text = document.getElementById('which-player-turn');
                 this.state.player1Turn = !this.state.player1Turn;
                 const num = this.state.player1Turn ? `1` : `2`;
                 let innerText = `Player ${num}'s Turn`;
-                if (this.state.player1Solid !== undefined) {
-                    let type;
-                    if (this.state.player1Turn) {
-                        if (this.state.player1Solid) type = 'solid';
-                        else type = 'striped';
-                    } else {
-                        if (this.state.player1Solid) type = 'striped';
-                        else type = 'solid';
-                    }
-                    innerText += `: pocket ${type} balls`;
-                }
                 text.innerText = innerText;
             }
             this.arrow.visible = true;
             this.state.ballPocketed = false;
-            this.state.playerBallPocketed = false;
         } else {
             this.arrow.visible = false;
         }
