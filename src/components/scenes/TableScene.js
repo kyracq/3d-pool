@@ -24,21 +24,19 @@ class TableScene extends Scene3D {
         if (this.state.player1Turn) {
             if (this.state.player1Solid) {
                 if (this.state.solidsLeft === 0) alert('Player 1 wins!');
-                else alert('Player 2 wins!');
             } else {
                 if (this.state.stripesLeft === 0) alert('Player 1 wins!');
-                else alert('Player 2 wins!');
             }
+            alert('Player 2 wins!');
         } else {
             // Player 2's turn
             if (this.state.player1Solid) {
                 // Player 2 is striped
                 if (this.state.stripesLeft === 0) alert('Player 2 wins!');
-                else alert('Player 1 wins!');
             } else {
                 if (this.state.solidsLeft === 0) alert('Player 2 wins!');
-                else alert('Player 1 wins!');
             }
+            alert('Player 1 wins!');
         }
     }
 
@@ -409,7 +407,7 @@ class TableScene extends Scene3D {
         cue.body.setDamping(0.3, 0.3);
         this.cue = cue;
         // add sounds
-        const cue_sound = new Audio('src/components/sounds/cue hit.mp3');
+        const cue_sound = new Audio('assets/sounds/cue-hit.mp3');
 
         // take care of pockets/ collisions with pockets
         // pocket 1

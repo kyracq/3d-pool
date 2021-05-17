@@ -8,7 +8,7 @@ const style =
     '<style type="text/css">' +
     'body, h1 { font-family: "Oxygen", sans-serif;}' +
     'h1 {font-weight: 700; text-align:center; font-size: 80px;}' +
-    '#title-div {position: absolute; left: 50%; top: 30%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);' +
+    '#title-div {position: absolute; left: 50%; top: 300px; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);' +
     'border: 1px solid green; padding: 40px; border-radius: 15px; box-shadow: 5px 10px 7px 1px #3d3d3d;}' +
     'p {text-align: center;}' +
     '#start {font-size: 24px;}';
