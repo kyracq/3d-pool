@@ -134,7 +134,7 @@ class TableScene extends Scene3D {
                 case 'sunPark':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/sunny_vondelpark.jpg',
+                        'assets/backgrounds/sunny_vondelpark.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -154,7 +154,7 @@ class TableScene extends Scene3D {
                 case 'shanghai':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/shanghai_bund.jpg',
+                        'assets/backgrounds/shanghai_bund.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -170,7 +170,7 @@ class TableScene extends Scene3D {
                 case 'beach':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/umhlanga_sunrise.jpg',
+                        'assets/backgrounds/umhlanga_sunrise.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -186,7 +186,7 @@ class TableScene extends Scene3D {
                 case 'artStudio':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/art_studio.jpg',
+                        'assets/backgrounds/art_studio.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -202,7 +202,7 @@ class TableScene extends Scene3D {
                 case 'modernBuilding':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/modern_buildings_night.jpg',
+                        'assets/backgrounds/modern_buildings_night.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -218,7 +218,7 @@ class TableScene extends Scene3D {
                 case 'snowyField':
                     // load background
                     texture = loader.load(
-                        'src/components/backgrounds/snowy_field.jpg',
+                        'assets/backgrounds/snowy_field.jpg',
                         () => {
                             const rt = new THREE.WebGLCubeRenderTarget(
                                 texture.image.height
@@ -386,7 +386,7 @@ class TableScene extends Scene3D {
         this.poolBalls = [];
         for (let i = 0; i < positions.length; i++) {
             var geometry = new THREE.SphereGeometry(0.16, 16, 16);
-            var pic = 'src/components/ball textures/' + (i + 1) + '.png';
+            let pic = 'assets/ballTextures/' + (i + 1) + '.png';
             var ball_material = new THREE.MeshBasicMaterial({
                 map: loader.load(pic),
             });
