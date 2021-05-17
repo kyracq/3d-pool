@@ -8,7 +8,7 @@ const style =
     '<style type="text/css">' +
     'body, h1 { font-family: "Oxygen", sans-serif;}' +
     'h1 {font-weight: 700; text-align:center; font-size: 80px;}' +
-    '#title-div {position: absolute; left: 50%; top: 30%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);' +
+    '#title-div {position: absolute; left: 50%; top: 300px; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);' +
     'border: 1px solid green; padding: 40px; border-radius: 15px; box-shadow: 5px 10px 7px 1px #3d3d3d;}' +
     'p {text-align: center;}' +
     '#start {font-size: 24px;}';
@@ -39,7 +39,8 @@ text1.innerText = 'Press enter to start';
 text1.id = 'start';
 const text2 = document.createElement('p');
 text2.innerText =
-    '3D Pool is a traditional 8-ball pool game. Use the left and ' +
+    '3D Pool is a traditional 2 player 8-ball pool game. Pocket all the balls, then pocket' +
+    ' the 8-ball to win. Pocket the 8-ball early and you lose. Use the left and ' +
     'right arrow keys to change the direction of the shot, press and hold the space bar to set your power level, and release the space bar to take the shot.';
 container.appendChild(text2);
 container.appendChild(text1);

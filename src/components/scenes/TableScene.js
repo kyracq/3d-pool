@@ -221,7 +221,7 @@ class TableScene extends Scene3D {
         var box7 = this.add.box({width: 2, height: 3.43, depth: 4.1, y: -2, x: 5.70}, {lambert: {color: 'red', transparent: true, opacity:0.0}});
         this.physics.add.existing(box7, {collisionFlags: 2});
         box7.body.setFriction(0.7);
-        box7.body.setBounciness(0.8);
+        box7.body.setBounciness(0.8); 
 
         // add balls 
         let positions = [
