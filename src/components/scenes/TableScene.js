@@ -21,23 +21,24 @@ class TableScene extends Scene3D {
     // function to refresh scene
     gameEnd() {
         window.location.href = window.location.href;
-        if (this.state.player1Turn) {
-            if (this.state.player1Solid) {
-                if (this.state.solidsLeft === 0) alert('Player 1 wins!');
-            } else {
-                if (this.state.stripesLeft === 0) alert('Player 1 wins!');
-            }
-            alert('Player 2 wins!');
-        } else {
-            // Player 2's turn
-            if (this.state.player1Solid) {
-                // Player 2 is striped
-                if (this.state.stripesLeft === 0) alert('Player 2 wins!');
-            } else {
-                if (this.state.solidsLeft === 0) alert('Player 2 wins!');
-            }
-            alert('Player 1 wins!');
-        }
+        alert('Game over');
+        // if (this.state.player1Turn) {
+        //     if (this.state.player1Solid) {
+        //         if (this.state.solidsLeft === 0) alert('Player 1 wins!');
+        //     } else {
+        //         if (this.state.stripesLeft === 0) alert('Player 1 wins!');
+        //     }
+        //     alert('Player 2 wins!');
+        // } else {
+        //     // Player 2's turn
+        //     if (this.state.player1Solid) {
+        //         // Player 2 is striped
+        //         if (this.state.stripesLeft === 0) alert('Player 2 wins!');
+        //     } else {
+        //         if (this.state.solidsLeft === 0) alert('Player 2 wins!');
+        //     }
+        //     alert('Player 1 wins!');
+        // }
     }
 
     create() {
