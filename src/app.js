@@ -39,7 +39,7 @@ text1.innerText = 'Press enter to start';
 text1.id = 'start';
 const text2 = document.createElement('p');
 text2.innerText =
-    '3D Pool is a traditional 2 player 8-ball pool game. Pocket all the balls of your type (solid or striped), then pocket' +
+    '3D Pool is a traditional 2 player 8-ball pool game. Pocket all the balls, then pocket' +
     ' the 8-ball to win. Pocket the 8-ball early and you lose. Use the left and ' +
     'right arrow keys to change the direction of the shot, press and hold the space bar to set your power level, and release the space bar to take the shot.';
 container.appendChild(text2);
